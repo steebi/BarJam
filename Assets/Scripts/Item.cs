@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item {
+namespace Assets.Scripts
+{
+    public class Item
+    {
 
+    }
 }
