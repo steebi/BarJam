@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = new Vector3(MoveHorizontal, 0.0f, moveVertical);
 
+        movement = Quaternion.Euler(-45, 0, 0) * movement;
+
         rb.AddForce(movement*speed);
         
     }
