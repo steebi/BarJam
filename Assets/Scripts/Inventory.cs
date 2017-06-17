@@ -10,14 +10,19 @@ namespace Assets.Scripts
 
         public void Add(Item item)
         {
+            this.Add(item.type, item.Count);
+        }
+
+        public void Add(ItemType type, int count)
+        {
             Item alreadyStoredItem;
-            if (this._storedItems.TryGetValue(item.type, out alreadyStoredItem))
+            if (this._storedItems.TryGetValue(type, out alreadyStoredItem))
             {
-                alreadyStoredItem.Count += item.Count;
+                alreadyStoredItem.Count += count;
             }
             else
             {
-                _storedItems[item.type] = new Item(item.Count, item.type);
+                _storedItems[type] = new Item(type, count);
             }
         }
 

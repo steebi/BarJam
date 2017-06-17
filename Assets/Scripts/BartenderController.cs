@@ -22,6 +22,12 @@ namespace Assets.Scripts
             }
         }
 
+        public void AccessDrinkSource(DrinkSourceController drinkSourceController)
+        {
+            ItemType CollectedItemType = drinkSourceController.GetItem();
+            this._inventory.Add(CollectedItemType, 1);
+        }
+
         private void RequestOrder(PunterController punterController)
         {
             this._orders[punterController.Id] = punterController.GiveOrder();
