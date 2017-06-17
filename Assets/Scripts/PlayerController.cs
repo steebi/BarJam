@@ -24,9 +24,14 @@ public class PlayerController : MonoBehaviour
         float MoveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = -(Input.GetAxis("Vertical"));
 
-        Vector3 movement = new Vector3(MoveHorizontal, 0.0f, moveVertical);
+        // TODO remove this, just for debugging
+        if (MoveHorizontal > 0.1f || moveVertical > 0.1f)
+        {
+            int i = 0;
+        }
 
-        movement = Quaternion.Euler(-45, 0, 0) * movement;
+        Vector3 movement = new Vector3(MoveHorizontal, 0.0f, moveVertical);
+        movement = Quaternion.Euler(0, -45, 0) * movement;
 
         rb.AddForce(movement*speed);
         
