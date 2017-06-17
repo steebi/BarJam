@@ -18,9 +18,15 @@ namespace Assets.Scripts
         public void DeliverDrink(PunterController punterController)
         {
             // check if the order is wrong
-
-            // if wrong, just return. in future maybe make the punter more angry
-            // if right, 
+            Inventory order = this._orders[punterController.Id];
+            if(this._inventory.TryRemove(order))
+            {
+                punterController.Satisfy();
+            }
+            else
+            {
+                // if wrong, just return. in future maybe make the punter more angry
+            }
         }
     }
 }
