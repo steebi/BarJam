@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    class PunterController
+    public class PunterController
     {
         private Inventory _order;
         private float _angerLevel = 0f; // 0 to 1.
