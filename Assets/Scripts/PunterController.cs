@@ -12,6 +12,8 @@ namespace Assets.Scripts
         private float _impatience = 1f; // multiply 
         private bool _hasGivenOrder = false;
 
+        public long Id = 1L;
+
         public Inventory GiveOrder()
         {
             // can alter anger level here if needed?
@@ -30,6 +32,10 @@ namespace Assets.Scripts
         public void Tick(float deltaTime)
         {
             this._angerLevel += this._impatience * deltaTime * _impatience;
+            if (this._angerLevel >= 1f)
+            {
+                // flip the fuck out
+            }
         }
     }
 }
