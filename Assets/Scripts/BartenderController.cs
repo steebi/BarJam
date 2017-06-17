@@ -10,6 +10,11 @@ namespace Assets.Scripts
         private Inventory _inventory;
         private Dictionary<long, Inventory> _orders;
 
+        public void TalkToPunter(PunterController punterController)
+        {
+            
+        }
+
         public void RequestOrder(PunterController punterController)
         {
             this._orders[punterController.Id] = punterController.GiveOrder();
