@@ -9,7 +9,7 @@ public class PlayerBehaviour : MonoBehaviour {
 
     private Rigidbody rb;
     private BartenderController bc;
-    private bool patronInRange = false;
+    private bool punterInRange = false;
     private PunterController punter = null;
 
     // Use this for initialization
@@ -22,10 +22,13 @@ public class PlayerBehaviour : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.GetAxis("TalkToPunter"))
+        if (Input.GetAxisRaw("TalkToPunter") != 0)
         {
-
-        }*/
+            if (punter != null)
+            {
+                bc.TalkToPunter(punter);
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -44,7 +47,8 @@ public class PlayerBehaviour : MonoBehaviour {
     {
         if (other.tag == "Punter")
         {
-            patronInRange = true;
+            punterInRange = true;
+            bc = other.GetComponent<BartenderController>();
         }
     }
 
@@ -52,7 +56,8 @@ public class PlayerBehaviour : MonoBehaviour {
     {
         if (other.tag == "Punter")
         {
-            patronInRange = false;
+            punterInRange = false;
+            bc = null;
         }
     }
 }
