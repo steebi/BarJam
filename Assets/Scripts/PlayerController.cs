@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
 public class PlayerController : MonoBehaviour
 {
     public int speed;
+
     private Rigidbody rb;
+    private BartenderController bc;
 
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        bc = new BartenderController();
     }
 
     // Update is called once per frame
@@ -23,12 +27,6 @@ public class PlayerController : MonoBehaviour
     {
         float MoveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = -(Input.GetAxis("Vertical"));
-
-        // TODO remove this, just for debugging
-        if (MoveHorizontal > 0.1f || moveVertical > 0.1f)
-        {
-            int i = 0;
-        }
 
         Vector3 movement = new Vector3(MoveHorizontal, 0.0f, moveVertical);
         movement = Quaternion.Euler(0, -45, 0) * movement;
