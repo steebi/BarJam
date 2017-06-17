@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerBehaviour : MonoBehaviour {
+
     public int speed;
 
     private Rigidbody rb;
     private BartenderController bc;
+    private bool patronInRange = false;
+    private PunterController punter = null;
 
     // Use this for initialization
     void Start()
@@ -20,7 +22,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*if (Input.GetAxis("TalkToPunter"))
+        {
 
+        }*/
     }
 
     private void FixedUpdate()
@@ -31,7 +36,23 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(MoveHorizontal, 0.0f, moveVertical);
         movement = Quaternion.Euler(0, -45, 0) * movement;
 
-        rb.AddForce(movement*speed);
-        
+        rb.AddForce(movement * speed);
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Punter")
+        {
+            patronInRange = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Punter")
+        {
+            patronInRange = false;
+        }
     }
 }
