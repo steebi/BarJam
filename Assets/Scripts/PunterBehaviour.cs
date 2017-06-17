@@ -5,11 +5,11 @@ using Assets.Scripts;
 
 public class PunterBehaviour : MonoBehaviour {
 
-    public PunterController pc;
+    public PunterController punterController;
 
 	// Use this for initialization
 	void Start () {
-        pc = new PunterController();
+        punterController = new PunterController();
 	}
 	
 	// Update is called once per frame
