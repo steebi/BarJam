@@ -17,7 +17,7 @@ namespace Assets.Scripts
         public int Count;
         public ItemType type;
 
-        public Item(int count, ItemType type)
+        public Item(ItemType type, int count)
         {
             this.Count = count;
             this.type = type;

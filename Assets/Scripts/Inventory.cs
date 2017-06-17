@@ -57,7 +57,7 @@ namespace Assets.Scripts
                 Item foundItem;
                 if(this._storedItems.TryGetValue(kvp.Key, out foundItem))
                 {
-                    potentialNewInventory.Add(new Item(foundItem.Count - kvp.Value.Count, kvp.Key));
+                    potentialNewInventory.Add(new Item(kvp.Key, foundItem.Count - kvp.Value.Count));
                     if(potentialNewInventory.Get(kvp.Key).Count < 0)
                     {
                         Debug.LogFormat("Could not remove Inventory. Item of type {0} was more ({1}) than current amount ({2}).", kvp.Key, kvp.Value.Count, foundItem.Count);

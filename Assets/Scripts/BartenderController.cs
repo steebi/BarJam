@@ -12,15 +12,22 @@ namespace Assets.Scripts
 
         public void TalkToPunter(PunterController punterController)
         {
-            
+            if(this._orders.ContainsKey(punterController.Id))
+            {
+                this.DeliverDrink(punterController);
+            }
+            else
+            {
+                this.RequestOrder(punterController);
+            }
         }
 
-        public void RequestOrder(PunterController punterController)
+        private void RequestOrder(PunterController punterController)
         {
             this._orders[punterController.Id] = punterController.GiveOrder();
         }
 
-        public void DeliverDrink(PunterController punterController)
+        private void DeliverDrink(PunterController punterController)
         {
             // check if the order is wrong
             Inventory order = this._orders[punterController.Id];
