@@ -19,9 +19,13 @@ public class PunterBehaviour : MonoBehaviour
         
     }
 
-    private void Start()
+    void Awake()
     {
         this.PunterController = new PunterController();
+    }
+
+    void Start()
+    {
         this._speedVector = new Vector3(-this._speed, 0f, 0f);
     }
 
@@ -33,6 +37,7 @@ public class PunterBehaviour : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     IEnumerator DisplayPunterOrder(Inventory inventory) {
         // Go through the list of items and create a sprite for each
         List<Sprite> orderItems = new List<Sprite>();
@@ -56,6 +61,8 @@ public class PunterBehaviour : MonoBehaviour
         }
     }
 
+=======
+>>>>>>> af88125a366919fbd9369e34ebc0a937a6d89295
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Counter")
