@@ -49,7 +49,8 @@ public class BartenderBehaviour : MonoBehaviour {
     {
         if (other.tag == "Punter")
         {
-            punter = other.GetComponent<PunterBehaviour>();
+            Debug.Log("Attaching Punter.");
+            punter = other.GetComponentInParent<PunterBehaviour>();
         }
     }
 
@@ -57,7 +58,8 @@ public class BartenderBehaviour : MonoBehaviour {
     {
         if (other.tag == "Punter")
         {
-            bc = null;
+            Debug.Log("Detaching Punter");
+            punter = null;
         }
     }
 }

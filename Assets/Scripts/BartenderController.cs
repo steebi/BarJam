@@ -7,8 +7,8 @@ namespace Assets.Scripts
 {
     class BartenderController
     {
-        private Inventory _inventory;
-        private Dictionary<long, Inventory> _orders;
+        private Inventory _inventory = new Inventory();
+        private Dictionary<long, Inventory> _orders = new Dictionary<long, Inventory>();
 
         public void TalkToPunter(PunterController punterController)
         {
