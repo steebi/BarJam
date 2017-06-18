@@ -19,6 +19,12 @@ namespace Assets.Scripts
         private GameObject _punterToClone;
         private int _maxPunters;
         private float _spawnPeriod;
+        private Vector3[] _spawnPoints = new Vector3[7] {
+                                                        new Vector3(12f, 0f, 15f), new Vector3(12f, 0f, -15f),
+                                                        new Vector3(12f, 0f, 10f), new Vector3(12f, 0f, -10f),
+                                                        new Vector3(12f, 0f, 5f), new Vector3(12f, 0f, -5f),
+                                                        new Vector3(12f, 0f, 0f),
+                                                        };
 
         private DateTime _nextSpawnTime = DateTime.Now;
 
@@ -38,8 +44,9 @@ namespace Assets.Scripts
         private void SpawnPunter()
         {
             Debug.Log("Spawning a punter!");
-            // TODO: randomise location
-            this._currentPunters.Add(GameObject.Instantiate(this._punterToClone));
+            GameObject punterToAdd = GameObject.Instantiate(this._punterToClone);
+            punterToAdd.transform.position = this._spawnPoints[UnityEngine.Random.Range(0, this._spawnPoints.Length)];
+            this._currentPunters.Add(punterToAdd);
 
         }
 
