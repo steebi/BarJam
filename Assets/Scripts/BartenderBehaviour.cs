@@ -28,7 +28,12 @@ public class BartenderBehaviour : MonoBehaviour {
             Debug.Log("Trying to talk to Punter!");
             if (punter != null)
             {
-                _bartenderController.TalkToPunter(punter.PunterController);
+                Inventory myInventory = _bartenderController.TalkToPunter(punter.PunterController);
+                // If we are returned an inventory the Patron wants something. Let player know what they want
+                if (myInventory != null)    
+                {
+
+                }
                 Debug.Log("Talking to Punter");
             }
             else if (this.drinkSourceBehavour != null)
