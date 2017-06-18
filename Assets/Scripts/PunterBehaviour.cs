@@ -22,9 +22,14 @@ public class PunterBehaviour : MonoBehaviour
 
     void Update()
     {
+        // TODO: probably switch case
         if (this.PunterController.State == PunterState.ApproachingBar)
         {
             gameObject.transform.position += this._speedVector * Time.deltaTime;
+        }
+        else if(this.PunterController.State == PunterState.ReturningToCrowd)
+        {
+            gameObject.transform.position -= this._speedVector * Time.deltaTime;
         }
     }
 

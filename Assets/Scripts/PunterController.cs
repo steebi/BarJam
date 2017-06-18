@@ -44,7 +44,7 @@ namespace Assets.Scripts
 
         public void Satisfy()
         {
-            this._isSatisfied = true;
+            this.State = PunterState.ReturningToCrowd;
         }
 
         public void Tick(float deltaTime)
