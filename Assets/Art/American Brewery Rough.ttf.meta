@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 60e780402e6644c16b1ad26472610417
+timeCreated: 1497790549
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: American Brewery Rough Demo
+  fontNames:
+  - American Brewery Rough Demo
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
