@@ -7,17 +7,24 @@ public class PunterBehaviour : MonoBehaviour {
 
     public PunterController punterController;
 
-    public float Speed;
+    private float _speed = 10f;
     private Vector3 _speedVector;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         punterController = new PunterController();
-        
 	}
+
+    private void Start()
+    {
+        this._speedVector = new Vector3(-this._speed, 0f, 0f);
+    }
 
     void Update()
     {
-        //gameObject.transform.position -= this.Speed * Time.deltaTime;
+        if (this.punterController.State == PunterState.ApproachingBar)
+        {
+            gameObject.transform.position += this._speedVector * Time.deltaTime;
+        }
     }
 }
