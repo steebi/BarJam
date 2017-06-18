@@ -8,35 +8,50 @@ namespace Assets.Scripts
 {
     class PunterManager
     {
-        public GameObject punterToClone;
+        public PunterManager(GameObject punterToClone, int maxPunters, float spawnPeriod)
+        {
+            this._punterToClone = punterToClone;
+            this._maxPunters = maxPunters;
+            this._spawnPeriod = spawnPeriod;
+            this._currentPunters = new List<GameObject>();
+        }
 
-        public int MaxPunters;
-        public float SpawnPeriod;
+        private GameObject _punterToClone;
+        private int _maxPunters;
+        private float _spawnPeriod;
 
         private DateTime _nextSpawnTime = DateTime.Now;
 
-        private List<int> _punterIDs;
+        private List<GameObject> _currentPunters;
 
         public void Tick(float deltaTime)
         {
             DateTime Now = DateTime.Now;
-            if (this._nextSpawnTime > Now)
+            if (this._nextSpawnTime < Now && this._currentPunters.Count < this._maxPunters)
             {
-                this._punterIDs.Add(this.SpawnPunter());
+                this.SpawnPunter();
                 this.UpdateNextSpawnTime(Now);
             }
+            this.Cleanup();
         }
 
-        private int SpawnPunter()
+        private void SpawnPunter()
         {
             Debug.Log("Spawning a punter!");
-            return 1;
+            // TODO: randomise location
+            this._currentPunters.Add(GameObject.Instantiate(this._punterToClone));
+
+        }
+
+        private void Cleanup()
+        {
+            // remove nulls from current punters
         }
         
         private void UpdateNextSpawnTime(DateTime now)
         {
             // TODO: add randomness
-            this._nextSpawnTime = now.AddSeconds(this.SpawnPeriod);
+            this._nextSpawnTime = now.AddSeconds(this._spawnPeriod);
         }
     }
 }
