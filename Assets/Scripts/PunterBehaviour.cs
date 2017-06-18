@@ -31,9 +31,14 @@ public class PunterBehaviour : MonoBehaviour
 
     void Update()
     {
+        // TODO: probably switch case
         if (this.PunterController.State == PunterState.ApproachingBar)
         {
             gameObject.transform.position += this._speedVector * Time.deltaTime;
+        }
+        else if(this.PunterController.State == PunterState.ReturningToCrowd)
+        {
+            gameObject.transform.position -= this._speedVector * Time.deltaTime;
         }
     }
 
@@ -68,6 +73,10 @@ public class PunterBehaviour : MonoBehaviour
         if (other.tag == "Counter")
         {
             this.PunterController.State = PunterState.AtBar;
+        }
+        if (other.tag == "Crowd" && this.PunterController.State == PunterState.ReturningToCrowd)
+        {
+            Destroy(gameObject);
         }
     }
 }

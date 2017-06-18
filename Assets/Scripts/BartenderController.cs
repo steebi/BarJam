@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -10,11 +11,17 @@ namespace Assets.Scripts
         private Inventory _inventory = new Inventory();
         private Dictionary<long, Inventory> _orders = new Dictionary<long, Inventory>();
 
+        private float _totalTips = 0f;
+
         public Inventory TalkToPunter(PunterController punterController)
         {
             if(this._orders.ContainsKey(punterController.Id))
             {
-                return this.DeliverDrink(punterController);
+                if(punterController.State == PunterState.AtBar)
+                {
+                    return this.DeliverDrink(punterController);
+                }
+                return null;
             }
             else
             {
@@ -46,7 +53,8 @@ namespace Assets.Scripts
             Inventory order = this._orders[punterController.Id];
             if(this._inventory.TryRemove(order))
             {
-                punterController.Satisfy();
+                this._totalTips += punterController.Satisfy();
+                Debug.LogFormat("Total Tips: {0}.", this._totalTips);
             }
             else
             {
