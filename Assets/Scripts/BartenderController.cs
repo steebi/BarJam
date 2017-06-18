@@ -28,6 +28,11 @@ namespace Assets.Scripts
             this._inventory.Add(CollectedItemType, 1);
         }
 
+        public void LogCurrentInventory()
+        {
+            this._inventory.Log();
+        }
+
         private void RequestOrder(PunterController punterController)
         {
             this._orders[punterController.Id] = punterController.GiveOrder();
