@@ -105,7 +105,7 @@ namespace Assets.Scripts
                 }
             }
 
-            this.Update(inventory);
+            this.Update(potentialNewInventory);
             return true;
         }
     }
