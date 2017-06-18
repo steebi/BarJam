@@ -10,15 +10,15 @@ namespace Assets.Scripts
         private Inventory _inventory = new Inventory();
         private Dictionary<long, Inventory> _orders = new Dictionary<long, Inventory>();
 
-        public void TalkToPunter(PunterController punterController)
+        public Inventory TalkToPunter(PunterController punterController)
         {
             if(this._orders.ContainsKey(punterController.Id))
             {
-                this.DeliverDrink(punterController);
+                return this.DeliverDrink(punterController);
             }
             else
             {
-                this.RequestOrder(punterController);
+                return this.RequestOrder(punterController);
             }
         }
 
@@ -33,12 +33,14 @@ namespace Assets.Scripts
             this._inventory.Log();
         }
 
-        private void RequestOrder(PunterController punterController)
+        private Inventory RequestOrder(PunterController punterController)
         {
-            this._orders[punterController.Id] = punterController.GiveOrder();
+            Inventory puntersOrder = punterController.GiveOrder();
+            this._orders[punterController.Id] = puntersOrder;
+            return puntersOrder;
         }
 
-        private void DeliverDrink(PunterController punterController)
+        private Inventory DeliverDrink(PunterController punterController)
         {
             // check if the order is wrong
             Inventory order = this._orders[punterController.Id];
@@ -50,6 +52,7 @@ namespace Assets.Scripts
             {
                 // if wrong, just return. in future maybe make the punter more angry
             }
+            return null;
         }
     }
 }
