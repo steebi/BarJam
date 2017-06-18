@@ -49,7 +49,7 @@ namespace Assets.Scripts
             GameObject punterToAdd = GameObject.Instantiate(this._punterToClone);
             punterToAdd.transform.position = this._spawnPoints[UnityEngine.Random.Range(0, this._spawnPoints.Length)];
 
-            PunterController punterController = punterToAdd.GetComponent<PunterBehaviour>().punterController;
+            PunterController punterController = punterToAdd.GetComponent<PunterBehaviour>().PunterController;
             punterController.State = PunterState.ApproachingBar;
             punterController.Id = this.punterID;
             punterID++;

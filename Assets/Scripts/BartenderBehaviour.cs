@@ -28,7 +28,7 @@ public class BartenderBehaviour : MonoBehaviour {
             Debug.Log("Trying to talk to Punter!");
             if (punter != null)
             {
-                _bartenderController.TalkToPunter(punter.punterController);
+                _bartenderController.TalkToPunter(punter.PunterController);
                 Debug.Log("Talking to Punter");
             }
             else if (this.drinkSourceBehavour != null)
