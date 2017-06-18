@@ -6,6 +6,13 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
+    public enum PunterState
+    {
+        ApproachingBar = 0,
+        AtBar = 1,
+        ReturningToCrowd = 2
+    }
+
     public class PunterController
     {
         // TODO: hardcoded for now, randomise in a constructor or in generator
@@ -17,6 +24,7 @@ namespace Assets.Scripts
         [SerializeField]
         private bool _isSatisfied = false;
 
+        public PunterState State = PunterState.AtBar;
         public long Id = 1L;
 
         public Inventory GiveOrder()

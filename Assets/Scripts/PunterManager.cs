@@ -19,11 +19,13 @@ namespace Assets.Scripts
         private GameObject _punterToClone;
         private int _maxPunters;
         private float _spawnPeriod;
+        private int punterID;
+
         private Vector3[] _spawnPoints = new Vector3[7] {
-                                                        new Vector3(12f, 0f, 15f), new Vector3(12f, 0f, -15f),
-                                                        new Vector3(12f, 0f, 10f), new Vector3(12f, 0f, -10f),
-                                                        new Vector3(12f, 0f, 5f), new Vector3(12f, 0f, -5f),
-                                                        new Vector3(12f, 0f, 0f),
+                                                        new Vector3(12f, 4f, 15f), new Vector3(12f, 4f, -15f),
+                                                        new Vector3(12f, 4f, 10f), new Vector3(12f, 4f, -10f),
+                                                        new Vector3(12f, 4f, 5f), new Vector3(12f, 4f, -5f),
+                                                        new Vector3(12f, 4f, 0f),
                                                         };
 
         private DateTime _nextSpawnTime = DateTime.Now;
@@ -46,6 +48,11 @@ namespace Assets.Scripts
             Debug.Log("Spawning a punter!");
             GameObject punterToAdd = GameObject.Instantiate(this._punterToClone);
             punterToAdd.transform.position = this._spawnPoints[UnityEngine.Random.Range(0, this._spawnPoints.Length)];
+
+            PunterController punterController = punterToAdd.GetComponent<PunterBehaviour>().punterController;
+            punterController.State = PunterState.ApproachingBar;
+            punterController.Id = this.punterID;
+            punterID++;
             this._currentPunters.Add(punterToAdd);
 
         }
