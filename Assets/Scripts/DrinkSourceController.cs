@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class DrinkSourceController
+    public class DrinkSourceController
     {
         private Item _storedItem;
 
