@@ -36,8 +36,6 @@ public class BartenderBehaviour : MonoBehaviour {
                 _bartenderController.AccessDrinkSource(this.drinkSourceBehavour.DrinkSourceController);
                 Debug.Log("Accessing Drink Source");
             }
-
-            this._bartenderController.LogCurrentInventory();
         }
     }
 

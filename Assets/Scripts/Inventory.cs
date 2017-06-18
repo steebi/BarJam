@@ -27,13 +27,13 @@ namespace Assets.Scripts
 
         public void Log()
         {
-            Debug.Log("Inventory:");
-            Debug.Log("==========");
+            Debug.LogWarning("Inventory:");
+            Debug.LogWarning("==========");
             foreach (KeyValuePair<ItemType, Item> kvp in this._storedItems)
             {
-                Debug.LogFormat("{0} items of type {1}.", kvp.Value.Count, kvp.Value.type);
+                Debug.LogWarningFormat("{0} items of type {1}.", kvp.Value.Count, kvp.Value.type);
             }
-            Debug.Log("==========");
+            Debug.LogWarning("==========");
         }
 
         private Dictionary<ItemType, Item> _storedItems;

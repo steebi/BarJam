@@ -25,7 +25,10 @@ namespace Assets.Scripts
             }
             else
             {
-                return this.RequestOrder(punterController);
+                Inventory order = this.RequestOrder(punterController);
+                Debug.LogWarning("ORDER");
+                order.Log();
+                return order;
             }
         }
 
