@@ -8,15 +8,16 @@ public class BartenderBehaviour : MonoBehaviour {
     public int speed;
 
     private Rigidbody rb;
-    private BartenderController bc;
+    private BartenderController _bartenderController;
     private bool punterInRange = false;
     private PunterBehaviour punter = null;
+    private DrinkSourceBehaviour drinkSourceBehavour = null;
 
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        bc = new BartenderController();
+        _bartenderController = new BartenderController();
     }
 
     // Update is called once per frame
@@ -27,9 +28,16 @@ public class BartenderBehaviour : MonoBehaviour {
             Debug.Log("Trying to talk to Punter!");
             if (punter != null)
             {
-                bc.TalkToPunter(punter.punterController);
+                _bartenderController.TalkToPunter(punter.punterController);
                 Debug.Log("Talking to Punter");
             }
+            else if (this.drinkSourceBehavour != null)
+            {
+                _bartenderController.AccessDrinkSource(this.drinkSourceBehavour.DrinkSourceController);
+                Debug.Log("Accessing Drink Source");
+            }
+
+            this._bartenderController.LogCurrentInventory();
         }
     }
 
@@ -52,6 +60,12 @@ public class BartenderBehaviour : MonoBehaviour {
             Debug.Log("Attaching Punter.");
             punter = other.GetComponentInParent<PunterBehaviour>();
         }
+        else if (other.tag == "DrinkSource")
+        {
+            Debug.Log("Attaching DrinkSource.");
+            this.drinkSourceBehavour = other.GetComponent<DrinkSourceBehaviour>();
+
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -60,6 +74,11 @@ public class BartenderBehaviour : MonoBehaviour {
         {
             Debug.Log("Detaching Punter");
             punter = null;
+        }
+        else if (other.tag == "DrinkSource")
+        {
+            Debug.Log("Detaching DrinkSource.");
+            this.drinkSourceBehavour = null;
         }
     }
 }

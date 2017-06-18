@@ -25,6 +25,17 @@ namespace Assets.Scripts
 
         }
 
+        public void Log()
+        {
+            Debug.Log("Inventory:");
+            Debug.Log("==========");
+            foreach (KeyValuePair<ItemType, Item> kvp in this._storedItems)
+            {
+                Debug.LogFormat("{0} items of type {1}.", kvp.Value.Count, kvp.Value.type);
+            }
+            Debug.Log("==========");
+        }
+
         private Dictionary<ItemType, Item> _storedItems;
 
         public void Add(Item item)
@@ -94,7 +105,7 @@ namespace Assets.Scripts
                 }
             }
 
-            this.Update(inventory);
+            this.Update(potentialNewInventory);
             return true;
         }
     }
