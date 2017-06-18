@@ -39,5 +39,9 @@ public class PunterBehaviour : MonoBehaviour
         {
             this.PunterController.State = PunterState.AtBar;
         }
+        if (other.tag == "Crowd" && this.PunterController.State == PunterState.ReturningToCrowd)
+        {
+            Destroy(gameObject);
+        }
     }
 }
