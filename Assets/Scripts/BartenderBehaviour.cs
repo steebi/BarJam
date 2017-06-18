@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
 
-public class PlayerBehaviour : MonoBehaviour {
+public class BartenderBehaviour : MonoBehaviour {
 
     public int speed;
 
     private Rigidbody rb;
     private BartenderController bc;
     private bool punterInRange = false;
-    private PunterController punter = null;
+    private PunterBehaviour punter = null;
 
     // Use this for initialization
     void Start()
@@ -24,9 +24,11 @@ public class PlayerBehaviour : MonoBehaviour {
     {
         if (Input.GetAxisRaw("TalkToPunter") != 0)
         {
+            Debug.Log("Trying to talk to Punter!");
             if (punter != null)
             {
-                bc.TalkToPunter(punter);
+                bc.TalkToPunter(punter.punterController);
+                Debug.Log("Talking to Punter");
             }
         }
     }
@@ -47,8 +49,7 @@ public class PlayerBehaviour : MonoBehaviour {
     {
         if (other.tag == "Punter")
         {
-            punterInRange = true;
-            bc = other.GetComponent<BartenderController>();
+            punter = other.GetComponent<PunterBehaviour>();
         }
     }
 
@@ -56,7 +57,6 @@ public class PlayerBehaviour : MonoBehaviour {
     {
         if (other.tag == "Punter")
         {
-            punterInRange = false;
             bc = null;
         }
     }
