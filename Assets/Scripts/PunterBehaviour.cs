@@ -27,4 +27,12 @@ public class PunterBehaviour : MonoBehaviour {
             gameObject.transform.position += this._speedVector * Time.deltaTime;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Counter")
+        {
+            this.punterController.State = PunterState.AtBar;
+        }
+    }
 }
