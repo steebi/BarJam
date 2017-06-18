@@ -10,8 +10,8 @@ namespace Assets.Scripts
     {
         public PunterManager(GameObject punterToClone, int maxPunters, float spawnPeriod)
         {
+            this.numSpawnPoints = maxPunters;
             this._punterToClone = punterToClone;
-            this._maxPunters = maxPunters;
             this._spawnPeriod = spawnPeriod;
             this._currentPunters = new GameObject[this.numSpawnPoints];
             this._spawnPoints = new Vector3[this.numSpawnPoints];
@@ -25,10 +25,9 @@ namespace Assets.Scripts
         }
 
         private GameObject _punterToClone;
-        private int _maxPunters;
         private float _spawnPeriod;
         private int punterID;
-        private int numSpawnPoints = 7;
+        private int numSpawnPoints;
 
         private Vector3[] _spawnPoints;
         private GameObject[] _currentPunters;
@@ -42,12 +41,12 @@ namespace Assets.Scripts
         public void Tick(float deltaTime)
         {
             DateTime Now = DateTime.Now;
-            if (this._nextSpawnTime < Now && this._currentNumberOfPunters < this._maxPunters)
+            if (this._nextSpawnTime < Now)
             {
                 this.SpawnPunter();
                 this.UpdateNextSpawnTime(Now);
             }
-            this.Cleanup();
+            this.UpdatePunters();
         }
 
         private void SpawnPunter()
@@ -80,9 +79,8 @@ namespace Assets.Scripts
             this._currentPunters[selectedQueueIndex] = punterToAdd;
         }
 
-        private void Cleanup()
+        private void UpdatePunters()
         {
-            // remove nulls from current punters
             for (int i = 0; i < this._currentPunters.Length; i++)
             {
                 if(this._currentPunters[i] == null)
@@ -93,6 +91,7 @@ namespace Assets.Scripts
                         this._unOccupiedQueueIndexes.Add(i);
                     }
                 }
+                
             }
         }
         
