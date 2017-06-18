@@ -14,7 +14,11 @@ namespace Assets.Scripts
         {
             if(this._orders.ContainsKey(punterController.Id))
             {
-                return this.DeliverDrink(punterController);
+                if(punterController.State == PunterState.AtBar)
+                {
+                    return this.DeliverDrink(punterController);
+                }
+                return null;
             }
             else
             {
