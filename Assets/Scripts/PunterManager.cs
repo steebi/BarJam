@@ -13,8 +13,8 @@ namespace Assets.Scripts
             this._punterToClone = punterToClone;
             this._maxPunters = maxPunters;
             this._spawnPeriod = spawnPeriod;
-            this._currentPunters = new List<GameObject>();
-            this._spawnPoints = new Vector3[7];
+            this._currentPunters = new GameObject[this.numSpawnPoints];
+            this._spawnPoints = new Vector3[this.numSpawnPoints];
             this._unOccupiedQueueIndexes = new List<int>();
 
             for (int i = 0; i < this.numSpawnPoints; i++)
@@ -31,16 +31,18 @@ namespace Assets.Scripts
         private int numSpawnPoints = 7;
 
         private Vector3[] _spawnPoints;
+        private GameObject[] _currentPunters;
+        private int _currentNumberOfPunters;
+
         private List<int> _unOccupiedQueueIndexes;
 
         private DateTime _nextSpawnTime = DateTime.Now;
 
-        private List<GameObject> _currentPunters;
 
         public void Tick(float deltaTime)
         {
             DateTime Now = DateTime.Now;
-            if (this._nextSpawnTime < Now && this._currentPunters.Count < this._maxPunters)
+            if (this._nextSpawnTime < Now && this._currentNumberOfPunters < this._maxPunters)
             {
                 this.SpawnPunter();
                 this.UpdateNextSpawnTime(Now);
@@ -57,10 +59,17 @@ namespace Assets.Scripts
                 return;
             }
 
+            int selectedQueueIndex = this._unOccupiedQueueIndexes[UnityEngine.Random.Range(0, this._unOccupiedQueueIndexes.Count)];
+            if (this._currentPunters[selectedQueueIndex] != null)
+            {
+                Debug.LogErrorFormat("Cannot use queue index {0} to spawn a punter. already one there!", selectedQueueIndex);
+                return;
+            }
+
             Debug.Log("Spawning a punter!");
             GameObject punterToAdd = GameObject.Instantiate(this._punterToClone);
 
-            int selectedQueueIndex = this._unOccupiedQueueIndexes[UnityEngine.Random.Range(0, this._unOccupiedQueueIndexes.Count)];
+            Debug.LogFormat("Removing queue index {0}.", selectedQueueIndex);
             this._unOccupiedQueueIndexes.Remove(selectedQueueIndex);
             punterToAdd.transform.position = this._spawnPoints[selectedQueueIndex];
 
@@ -68,19 +77,21 @@ namespace Assets.Scripts
             punterController.State = PunterState.ApproachingBar;
             punterController.Id = this.punterID;
             punterID++;
-            this._currentPunters.Add(punterToAdd);
-
+            this._currentPunters[selectedQueueIndex] = punterToAdd;
         }
 
         private void Cleanup()
         {
             // remove nulls from current punters
-            for (int i = 0; i < this._currentPunters.Count; i++)
+            for (int i = 0; i < this._currentPunters.Length; i++)
             {
                 if(this._currentPunters[i] == null)
                 {
-                    this._currentPunters.RemoveAt(i);
-                    this._unOccupiedQueueIndexes.Add(i);
+                    // AOF: this is horrifically inefficient, sorry everyone.
+                    if (!this._unOccupiedQueueIndexes.Contains(i))
+                    {
+                        this._unOccupiedQueueIndexes.Add(i);
+                    }
                 }
             }
         }
