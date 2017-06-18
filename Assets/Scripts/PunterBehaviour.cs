@@ -11,9 +11,4 @@ public class PunterBehaviour : MonoBehaviour {
 	void Start () {
         punterController = new PunterController();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
