@@ -22,7 +22,7 @@ public class BartenderBehaviour : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxisRaw("TalkToPunter") != 0)
+        if (Input.GetButtonDown("TalkToPunter"))
         {
             Debug.Log("Trying to talk to Punter!");
             if (punter != null)
