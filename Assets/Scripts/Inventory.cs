@@ -6,6 +6,25 @@ namespace Assets.Scripts
 {
     public class Inventory
     {
+        public Inventory()
+        {
+            this._storedItems = new Dictionary<ItemType, Item>();
+        }
+
+        public Inventory(List<ItemType> types, List<int> counts)
+        {
+            if(types.Count != counts.Count)
+            {
+                throw new System.ArgumentException("Cannot construct Inventory. Types and count must be of equal length.");
+            }
+            this._storedItems = new Dictionary<ItemType, Item>();
+            for (int i = 0; i < types.Count; i++)
+            {
+                this._storedItems[types[i]] = new Item(types[i], counts[i]);
+            }
+
+        }
+
         private Dictionary<ItemType, Item> _storedItems;
 
         public void Add(Item item)

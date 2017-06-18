@@ -8,7 +8,8 @@ namespace Assets.Scripts
 {
     public class PunterController
     {
-        private Inventory _order;
+        // TODO: hardcoded for now, randomise in a constructor or in generator
+        private Inventory _order = new Inventory(new List<ItemType>() { ItemType.Beer }, new List<int> { 1 });
         private float _angerLevel = 0f; // 0 to 1.
         private float _impatience = 1f; // multiply 
         private bool _hasGivenOrder = false;
