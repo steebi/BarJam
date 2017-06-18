@@ -67,8 +67,7 @@ namespace Assets.Scripts
 
             Debug.Log("Spawning a punter!");
             GameObject punterToAdd = GameObject.Instantiate(this._punterToClone);
-
-            Debug.LogFormat("Removing queue index {0}.", selectedQueueIndex);
+            
             this._unOccupiedQueueIndexes.Remove(selectedQueueIndex);
             punterToAdd.transform.position = this._spawnPoints[selectedQueueIndex];
 

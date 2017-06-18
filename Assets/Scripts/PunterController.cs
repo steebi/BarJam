@@ -42,9 +42,10 @@ namespace Assets.Scripts
             return this._order;
         }
 
-        public void Satisfy()
+        public float Satisfy()
         {
             this.State = PunterState.ReturningToCrowd;
+            return 1.5f;
         }
 
         public void Tick(float deltaTime)
