@@ -10,9 +10,13 @@ public class PunterBehaviour : MonoBehaviour
     public PunterController PunterController;
 
 
-    private void Start()
+    void Awake()
     {
         this.PunterController = new PunterController();
+    }
+
+    void Start()
+    {
         this._speedVector = new Vector3(-this._speed, 0f, 0f);
     }
 
@@ -23,8 +27,6 @@ public class PunterBehaviour : MonoBehaviour
             gameObject.transform.position += this._speedVector * Time.deltaTime;
         }
     }
-
-
 
     private void OnTriggerEnter(Collider other)
     {
