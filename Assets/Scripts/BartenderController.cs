@@ -17,7 +17,10 @@ namespace Assets.Scripts
         {
             if(this._orders.ContainsKey(punterController.Id))
             {
-                if(punterController.State == PunterState.AtBar)
+                // reminder for order (for debugging)
+                Debug.LogWarning("ORDER_REMINDER");
+                this._orders[punterController.Id].Log();
+                if (punterController.State == PunterState.AtBar)
                 {
                     return this.DeliverDrink(punterController);
                 }
