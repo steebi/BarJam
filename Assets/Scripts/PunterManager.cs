@@ -54,7 +54,7 @@ namespace Assets.Scripts
             // select from the list of spawn points, and remove it from consideration next spawn
             if (this._unOccupiedQueueIndexes.Count == 0)
             {
-                Debug.LogError("Cannot spawn a new punter as all queues are occupied.");
+                Debug.Log("Cannot spawn a new punter as all queues are occupied.");
                 return;
             }
 

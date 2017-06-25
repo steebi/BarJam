@@ -12,15 +12,29 @@ namespace Assets.Scripts
         AtBar = 1,
         ReturningToCrowd = 2
     }
+    
 
     public class PunterController
     {
+        List<Inventory> possibleInventories = new List<Inventory>() {
+            new Inventory(new List<ItemType>() { ItemType.Beer }, new List<int> { 1 }),
+            new Inventory(new List<ItemType>() { ItemType.Beer }, new List<int> { 2 }),
+            new Inventory(new List<ItemType>() { ItemType.Water }, new List<int> { 1 }),
+            new Inventory(new List<ItemType>() { ItemType.Water }, new List<int> { 2 }),
+            new Inventory(new List<ItemType>() { ItemType.Water, ItemType.Beer }, new List<int> { 1, 1 })
+        };
+
+        public PunterController()
+        {
+            this._order = this.possibleInventories[UnityEngine.Random.Range(0, this.possibleInventories.Count)];
+        }
+
         // TODO: hardcoded for now, randomise in a constructor or in generator
-        private Inventory _order = new Inventory(new List<ItemType>() { ItemType.Beer }, new List<int> { 1 });
         private float _angerLevel = 0f; // 0 to 1.
         private float _impatience = 1f; // multiply 
         private bool _hasGivenOrder = false;
-        
+        private Inventory _order;
+
         [SerializeField]
         private bool _isSatisfied = false;
 

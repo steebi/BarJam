@@ -7,9 +7,11 @@ public class DrinkSourceBehaviour : MonoBehaviour {
 
     public DrinkSourceController DrinkSourceController;
 
+    public ItemType drinkType;
+
 	// Use this for initialization
 	void Start () {
         // TODO: default to Beer for now, but make configurable later
-        this.DrinkSourceController = new DrinkSourceController(ItemType.Beer, 100);
+        this.DrinkSourceController = new DrinkSourceController(this.drinkType, 100);
 	}
 }

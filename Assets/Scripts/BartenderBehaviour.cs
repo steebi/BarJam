@@ -8,7 +8,7 @@ public class BartenderBehaviour : MonoBehaviour {
     public int speed;
 
     private Rigidbody rb;
-    private BartenderController _bartenderController;
+    public BartenderController BartenderController;
     private bool punterInRange = false;
     private PunterBehaviour punter = null;
     private DrinkSourceBehaviour drinkSourceBehavour = null;
@@ -17,7 +17,7 @@ public class BartenderBehaviour : MonoBehaviour {
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        _bartenderController = new BartenderController();
+        BartenderController = new BartenderController();
     }
 
     // Update is called once per frame
@@ -28,6 +28,7 @@ public class BartenderBehaviour : MonoBehaviour {
             Debug.Log("Trying to talk to Punter!");
             if (punter != null)
             {
+<<<<<<< HEAD
                 Inventory orderList = _bartenderController.TalkToPunter(punter.punterController);
 
                 // If the order list is not null then inform us of the order
@@ -37,11 +38,14 @@ public class BartenderBehaviour : MonoBehaviour {
                     punter.ShowOrder();
                 }
 
+=======
+                BartenderController.TalkToPunter(punter.PunterController);
+>>>>>>> 7dfaab3ebfd24456a9b8fcd22c736cd1d42f2eb1
                 Debug.Log("Talking to Punter");
             }
             else if (this.drinkSourceBehavour != null)
             {
-                _bartenderController.AccessDrinkSource(this.drinkSourceBehavour.DrinkSourceController);
+                BartenderController.AccessDrinkSource(this.drinkSourceBehavour.DrinkSourceController);
                 Debug.Log("Accessing Drink Source");
             }
         }
