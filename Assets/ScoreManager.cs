@@ -88,14 +88,28 @@ public class ScoreManager : MonoBehaviour {
                 // TODO: move into ScoreService, this callback should expect the object, not a unitwebrequest.
                 ScoreService.FetchResponse responseObj = JsonUtility.FromJson<ScoreService.FetchResponse>(request.downloadHandler.text);
                 Debug.Log("Request successful!");
-                Debug.Log(responseObj.scores.Count);
-
+                this._dynamicScoreText.text = this.GetScoreSummaryString(responseObj);
             }
             else
             {
                 Debug.Log("NOPE.");
             }
         };
+    }
+
+    private string GetScoreSummaryString(ScoreService.FetchResponse fetchResponse)
+    {
+        string summaryString = "~~~TOP SCORES~~~\n";
+        summaryString += "NAME\t\t\t\t\tSCORE\n";
+
+        int numScores = Math.Min(fetchResponse.scores.Count, 6);
+        for(int i = 0; i < numScores; i++)
+        {
+            Debug.Log("adding score line");
+            summaryString += String.Format("{0}\t\t\t\t\t{1}\n",fetchResponse.scores[i].user, fetchResponse.scores[i].score);
+        }
+
+        return summaryString;
     }
 
     void End()
