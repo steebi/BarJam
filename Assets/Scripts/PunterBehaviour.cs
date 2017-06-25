@@ -22,7 +22,11 @@ public class PunterBehaviour : MonoBehaviour
     {
         this._speedVector = new Vector3(-this._speed, 0f, 0f);
         punterCanvas = GetComponent<Canvas>();
-        punterCanvas.enabled = false;
+        // AIDAN: added this to clear out errors, feel free to remove
+        if (punterCanvas != null)
+        {
+            punterCanvas.enabled = false;
+        }
     }
 
     void Update()
