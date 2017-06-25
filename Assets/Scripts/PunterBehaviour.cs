@@ -5,14 +5,16 @@ using Assets.Scripts;
 
 public class PunterBehaviour : MonoBehaviour
 {
+    public PunterController punterController;
+    public float orderDisplayTime = 5.0f;
+    public float displayTime;
+
     private Vector3 _speedVector;
     private float _speed = 10f;
-    public PunterController PunterController;
-
 
     void Awake()
     {
-        this.PunterController = new PunterController();
+        this.punterController = new PunterController();
     }
 
     void Start()
@@ -23,11 +25,11 @@ public class PunterBehaviour : MonoBehaviour
     void Update()
     {
         // TODO: probably switch case
-        if (this.PunterController.State == PunterState.ApproachingBar)
+        if (this.punterController.State == PunterState.ApproachingBar)
         {
             gameObject.transform.position += this._speedVector * Time.deltaTime;
         }
-        else if(this.PunterController.State == PunterState.ReturningToCrowd)
+        else if(this.punterController.State == PunterState.ReturningToCrowd)
         {
             gameObject.transform.position -= this._speedVector * Time.deltaTime;
         }
@@ -37,11 +39,32 @@ public class PunterBehaviour : MonoBehaviour
     {
         if (other.tag == "Counter")
         {
-            this.PunterController.State = PunterState.AtBar;
+            this.punterController.State = PunterState.AtBar;
         }
-        if (other.tag == "Crowd" && this.PunterController.State == PunterState.ReturningToCrowd)
+        if (other.tag == "Crowd" && this.punterController.State == PunterState.ReturningToCrowd)
         {
             Destroy(gameObject);
         }
+    }
+
+    public void ShowOrder()
+    {
+        Inventory inv = this.punterController.GiveOrder();
+    }
+
+    public IEnumerable DisplayOrder()
+    {
+
+        Inventory inv = punterController.GiveOrder();
+
+        // Instantiate the spritess
+        foreach (var item in inv)
+        {
+
+        }
+
+        yield return new WaitForSeconds(displayTime);
+        // Destroy the sprites
+        yield return null;
     }
 }

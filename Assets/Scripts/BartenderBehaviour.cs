@@ -28,7 +28,15 @@ public class BartenderBehaviour : MonoBehaviour {
             Debug.Log("Trying to talk to Punter!");
             if (punter != null)
             {
-                _bartenderController.TalkToPunter(punter.PunterController);
+                Inventory orderList = _bartenderController.TalkToPunter(punter.punterController);
+
+                // If the order list is not null then inform us of the order
+                if (orderList != null)
+                {
+                    // Punter object is called to show what drinks are wanted
+                    punter.ShowOrder();
+                }
+
                 Debug.Log("Talking to Punter");
             }
             else if (this.drinkSourceBehavour != null)

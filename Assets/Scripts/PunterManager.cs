@@ -71,7 +71,7 @@ namespace Assets.Scripts
             this._unOccupiedQueueIndexes.Remove(selectedQueueIndex);
             punterToAdd.transform.position = this._spawnPoints[selectedQueueIndex];
 
-            PunterController punterController = punterToAdd.GetComponent<PunterBehaviour>().PunterController;
+            PunterController punterController = punterToAdd.GetComponent<PunterBehaviour>().punterController;
             punterController.State = PunterState.ApproachingBar;
             punterController.Id = this.punterID;
             punterID++;
