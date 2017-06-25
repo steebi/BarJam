@@ -71,6 +71,7 @@ public class ScoreManager : MonoBehaviour {
         {
             if (this._scoreCanvasObject == null)
             {
+                this._scoreService.SubmitScore(this._score, OnScoreSubmitted());
                 this._scoreCanvasObject = GameObject.FindGameObjectWithTag("ScoreCanvas");
                 this._dynamicScoreText = this._scoreCanvasObject.GetComponent<Text>();
                 this._dynamicScoreText.text = String.Format(this._endGameText, this._score.ToString());
@@ -93,6 +94,17 @@ public class ScoreManager : MonoBehaviour {
             else
             {
                 Debug.Log("NOPE.");
+            }
+        };
+    }
+
+    Action<bool, UnityWebRequest> OnScoreSubmitted()
+    {
+        return delegate (bool requestSuccessful, UnityWebRequest request)
+        {
+            if (requestSuccessful)
+            {
+                Debug.Log(request.downloadHandler.text);
             }
         };
     }
