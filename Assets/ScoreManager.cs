@@ -115,10 +115,10 @@ public class ScoreManager : MonoBehaviour {
         string summaryString = "~~~TOP SCORES~~~\n";
         summaryString += "NAME\t\t\t\t\tSCORE\n";
         
-        List<Score> scores = fetchResponse.scores.OrderByDescending(s => s.score).ToList();
-
+        List<Score> scores = fetchResponse.scores;
         // Add current score rather than waiting for it to be added and then fetching
         scores.Add(new Score(Environment.UserName, this._score.ToString()));
+        scores = scores.OrderByDescending(s => s.score).ToList();
 
         int numScores = Math.Min(fetchResponse.scores.Count, 6);
         for(int i = 0; i < numScores; i++)
