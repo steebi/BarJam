@@ -9,7 +9,6 @@ public class BartenderBehaviour : MonoBehaviour {
 
     private Rigidbody rb;
     public BartenderController BartenderController;
-    private bool punterInRange = false;
     private PunterBehaviour punter = null;
     private DrinkSourceBehaviour drinkSourceBehavour = null;
 

@@ -35,9 +35,6 @@ namespace Assets.Scripts
         private bool _hasGivenOrder = false;
         private Inventory _order;
 
-        [SerializeField]
-        private bool _isSatisfied = false;
-
         public PunterState State = PunterState.AtBar;
         public long Id = 1L;
 

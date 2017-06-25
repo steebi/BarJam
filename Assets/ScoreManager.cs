@@ -6,6 +6,7 @@ using Assets.Scripts;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using System.Linq;
 
 public class ScoreManager : MonoBehaviour {
 
@@ -71,11 +72,11 @@ public class ScoreManager : MonoBehaviour {
         {
             if (this._scoreCanvasObject == null)
             {
-                this._scoreService.SubmitScore(this._score, OnScoreSubmitted());
+                this._scoreService.FetchScores(OnScoresFetched());
                 this._scoreCanvasObject = GameObject.FindGameObjectWithTag("ScoreCanvas");
                 this._dynamicScoreText = this._scoreCanvasObject.GetComponent<Text>();
                 this._dynamicScoreText.text = String.Format(this._endGameText, this._score.ToString());
-                this._scoreService.FetchScores( OnScoresFetched() );
+                this._scoreService.SubmitScore(this._score, OnScoreSubmitted());
             }
         }
     }
@@ -113,12 +114,17 @@ public class ScoreManager : MonoBehaviour {
     {
         string summaryString = "~~~TOP SCORES~~~\n";
         summaryString += "NAME\t\t\t\t\tSCORE\n";
+        
+        List<Score> scores = fetchResponse.scores.OrderByDescending(s => s.score).ToList();
+
+        // Add current score rather than waiting for it to be added and then fetching
+        scores.Add(new Score(Environment.UserName, this._score.ToString()));
 
         int numScores = Math.Min(fetchResponse.scores.Count, 6);
         for(int i = 0; i < numScores; i++)
         {
-            Debug.Log("adding score line");
-            summaryString += String.Format("{0}\t\t\t\t\t{1}\n",fetchResponse.scores[i].user, fetchResponse.scores[i].score);
+            Score thisScore = scores[i];
+            summaryString += String.Format("{0}\t\t\t\t\t{1}\n", thisScore.user, thisScore.score);
         }
 
         return summaryString;

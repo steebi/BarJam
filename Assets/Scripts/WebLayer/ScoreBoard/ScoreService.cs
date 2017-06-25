@@ -9,6 +9,12 @@ public class Score
     public string user;
     public string score;
     public string time;
+
+    public Score(string user, string score)
+    {
+        this.user = user;
+        this.score = score;
+    }
 }
 
 public class ScoreService
