@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    class BartenderController
+    public class BartenderController
     {
         private Inventory _inventory = new Inventory();
         private Dictionary<long, Inventory> _orders = new Dictionary<long, Inventory>();
 
-        private float _totalTips = 0f;
+        public float TotalTips = 0f;
 
         public Inventory TalkToPunter(PunterController punterController)
         {
@@ -56,8 +56,8 @@ namespace Assets.Scripts
             Inventory order = this._orders[punterController.Id];
             if(this._inventory.TryRemove(order))
             {
-                this._totalTips += punterController.Satisfy();
-                Debug.LogFormat("Total Tips: {0}.", this._totalTips);
+                this.TotalTips += punterController.Satisfy();
+                Debug.LogFormat("Total Tips: {0}.", this.TotalTips);
             }
             else
             {
