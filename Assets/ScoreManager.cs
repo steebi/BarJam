@@ -74,6 +74,7 @@ public class ScoreManager : MonoBehaviour {
                 this._scoreCanvasObject = GameObject.FindGameObjectWithTag("ScoreCanvas");
                 this._dynamicScoreText = this._scoreCanvasObject.GetComponent<Text>();
                 this._dynamicScoreText.text = String.Format(this._endGameText,this._score.ToString());
+                this._scoreService.SubmitScore(this._score);
             }
         }
 	}

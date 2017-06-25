@@ -32,6 +32,11 @@ public class RequestHandler
 
 class RequestBehaviour : MonoBehaviour
 {
+    public void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void MakeRequest(IEnumerator requestEnumerator)
     {
         StartCoroutine(requestEnumerator);
