@@ -11,6 +11,7 @@ public class PunterBehaviour : MonoBehaviour
 
     private Vector3 _speedVector;
     private float _speed = 10f;
+    private Canvas punterCanvas;
 
     void Awake()
     {
@@ -20,6 +21,8 @@ public class PunterBehaviour : MonoBehaviour
     void Start()
     {
         this._speedVector = new Vector3(-this._speed, 0f, 0f);
+        punterCanvas = GetComponent<Canvas>();
+        punterCanvas.enabled = false;
     }
 
     void Update()
