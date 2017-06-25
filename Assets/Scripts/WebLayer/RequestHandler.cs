@@ -14,21 +14,20 @@ public class RequestHandler
         this._requestBehaviour = this._requestBehaviourGO.AddComponent<RequestBehaviour>();
     }
 
-    public void MakeRequest(object requestObject, string endPoint, string value, System.Action<bool> callback)
+    public void MakeRequest(object requestObject, string endPoint, string value, System.Action<bool, UnityWebRequest> callback)
     {
         this._requestBehaviour.MakeRequest(this.CreateRequestEnumerator(requestObject, endPoint, value, callback));
         
     }
 
-    private IEnumerator CreateRequestEnumerator(object requestObject, string endPoint, string value, System.Action<bool> callback)
+    private IEnumerator CreateRequestEnumerator(object requestObject, string endPoint, string value, System.Action<bool, UnityWebRequest> callback)
     {
         string json = JsonUtility.ToJson(requestObject);
         UnityWebRequest request = UnityWebRequest.Put(endPoint + value, json);
         request.method = "POST";
         request.SetRequestHeader("Content-Type", "application/json");
         yield return request.Send();
-        // TODO: check if request is successful or not.
-        callback(true);
+        callback(true, request);
     }
 }
 

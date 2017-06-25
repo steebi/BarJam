@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.Networking;
 
+[System.Serializable]
 public class Score
 {
     public string user;
@@ -33,7 +35,14 @@ public class ScoreService
         public string game_name = Endpoints.GAME_NAME;
     }
 
-    public void FetchScores(System.Action<bool> callback)
+    [System.Serializable]
+    public class FetchResponse: object
+    {
+        [SerializeField]
+        public List<Score> scores;
+    }
+
+    public void FetchScores(System.Action<bool, UnityWebRequest> callback)
     {
         FetchRequest fetchRequest = new FetchRequest();
         string endpoint = Endpoints.SCORE_BOARD;
@@ -42,7 +51,7 @@ public class ScoreService
         this._requestHandler.MakeRequest(fetchRequest, endpoint, value, callback);
     }
 
-    public void SubmitScore(float score, System.Action<bool> callback)
+    public void SubmitScore(float score, System.Action<bool, UnityWebRequest> callback)
     {
         SubmitRequest submitRequest = new SubmitRequest();
         submitRequest.user = System.Environment.UserName;

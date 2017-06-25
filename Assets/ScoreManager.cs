@@ -5,6 +5,7 @@ using UnityEngine;
 using Assets.Scripts;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class ScoreManager : MonoBehaviour {
 
@@ -73,14 +74,28 @@ public class ScoreManager : MonoBehaviour {
                 this._scoreCanvasObject = GameObject.FindGameObjectWithTag("ScoreCanvas");
                 this._dynamicScoreText = this._scoreCanvasObject.GetComponent<Text>();
                 this._dynamicScoreText.text = String.Format(this._endGameText, this._score.ToString());
-                this._scoreService.SubmitScore(this._score, OnScoresFetched() );
+                this._scoreService.FetchScores( OnScoresFetched() );
             }
         }
     }
 
-    Action<bool> OnScoresFetched()
+    Action<bool, UnityWebRequest> OnScoresFetched()
     {
-        return (bool i) => { print(i); };
+        return delegate (bool requestSuccessful, UnityWebRequest request)
+        {
+            if (requestSuccessful)
+            {
+                // TODO: move into ScoreService, this callback should expect the object, not a unitwebrequest.
+                ScoreService.FetchResponse responseObj = JsonUtility.FromJson<ScoreService.FetchResponse>(request.downloadHandler.text);
+                Debug.Log("Request successful!");
+                Debug.Log(responseObj.scores.Count);
+
+            }
+            else
+            {
+                Debug.Log("NOPE.");
+            }
+        };
     }
 
     void End()
