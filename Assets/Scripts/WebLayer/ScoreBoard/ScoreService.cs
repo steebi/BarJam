@@ -33,21 +33,21 @@ public class ScoreService
         public string game_name = Endpoints.GAME_NAME;
     }
 
-    public void FetchScores()
+    public void FetchScores(System.Action<bool> callback)
     {
         FetchRequest fetchRequest = new FetchRequest();
         string endpoint = Endpoints.SCORE_BOARD;
         string value = getScores;
         
-        this._requestHandler.MakeRequest(fetchRequest, endpoint, value);
+        this._requestHandler.MakeRequest(fetchRequest, endpoint, value, callback);
     }
 
-    public void SubmitScore(float score)
+    public void SubmitScore(float score, System.Action<bool> callback)
     {
         SubmitRequest submitRequest = new SubmitRequest();
         submitRequest.user = System.Environment.UserName;
         submitRequest.score = score;
 
-        this._requestHandler.MakeRequest(submitRequest, Endpoints.SCORE_BOARD, insertScore);
+        this._requestHandler.MakeRequest(submitRequest, Endpoints.SCORE_BOARD, insertScore, callback);
     }
 }

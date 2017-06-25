@@ -47,18 +47,17 @@ public class ScoreManager : MonoBehaviour {
     {
         this._gameStartTime = DateTime.Now;
         this._scoreService = new ScoreService();
-        this._scoreService.FetchScores();
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update() {
         // Aidan: ugh gross sorry lol
-        if(this._bartenderController == null)
+        if (this._bartenderController == null)
         {
             this._bartenderController = Player.GetComponent<BartenderBehaviour>().BartenderController;
         }
 
-        if(this.state == GameState.InProgress)
+        if (this.state == GameState.InProgress)
         {
             this._score = this._bartenderController.TotalTips;
             this._timeSinceStart = (float)DateTime.Now.Subtract(this._gameStartTime).TotalSeconds;
@@ -67,17 +66,22 @@ public class ScoreManager : MonoBehaviour {
                 this.End();
             }
         }
-        else if(this.state == GameState.Over)
+        else if (this.state == GameState.Over)
         {
             if (this._scoreCanvasObject == null)
             {
                 this._scoreCanvasObject = GameObject.FindGameObjectWithTag("ScoreCanvas");
                 this._dynamicScoreText = this._scoreCanvasObject.GetComponent<Text>();
-                this._dynamicScoreText.text = String.Format(this._endGameText,this._score.ToString());
-                this._scoreService.SubmitScore(this._score);
+                this._dynamicScoreText.text = String.Format(this._endGameText, this._score.ToString());
+                this._scoreService.SubmitScore(this._score, OnScoresFetched() );
             }
         }
-	}
+    }
+
+    Action<bool> OnScoresFetched()
+    {
+        return (bool i) => { print(i); };
+    }
 
     void End()
     {
