@@ -24,6 +24,7 @@ public class RequestHandler
     {
         string json = JsonUtility.ToJson(requestObject);
         UnityWebRequest request = UnityWebRequest.Put(endPoint + value, json);
+        request.SetRequestHeader("x-api-key", Endpoints.X_API_KEY);
         request.method = "POST";
         request.SetRequestHeader("Content-Type", "application/json");
         yield return request.Send();
