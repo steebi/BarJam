@@ -6,8 +6,12 @@ using Assets.Scripts;
 public class DrinkSourceBehaviour : MonoBehaviour {
 
     public DrinkSourceController DrinkSourceController;
-
+    public SpriteRenderer m_sprite;
     public ItemType drinkType;
+
+    private void Awake() {
+        m_sprite.sprite = IconManager.Instance.GetItemSprite(drinkType);
+    }
 
 	// Use this for initialization
 	void Start () {
