@@ -13,11 +13,11 @@ public class CrowdBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        this._punterManager = new PunterManager(PunterToClone, MaxPunters, SpawnPeriod);
+                this._punterManager = new PunterManager(PunterToClone, MaxPunters, SpawnPeriod);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        _punterManager.Tick(Time.deltaTime);
+                _punterManager.Tick(Time.deltaTime);
 	}
 }

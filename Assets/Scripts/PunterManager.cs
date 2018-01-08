@@ -66,7 +66,8 @@ namespace Assets.Scripts
             }
 
             GameObject punterToAdd = GameObject.Instantiate(this._punterToClone);
-            
+            punterToAdd.GetComponent<PunterBehaviour>().Initialize();
+
             this._unOccupiedQueueIndexes.Remove(selectedQueueIndex);
             punterToAdd.transform.position = this._spawnPoints[selectedQueueIndex];
 

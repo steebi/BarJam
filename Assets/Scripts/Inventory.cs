@@ -58,7 +58,9 @@ namespace Assets.Scripts
 
         public Item Get(ItemType type)
         {
-            return this._storedItems[type];
+            Item output = null;
+            this._storedItems.TryGetValue(type, out output);
+            return output;
         }
 
         public IEnumerator<KeyValuePair<ItemType, Item>> GetEnumerator()
