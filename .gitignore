@@ -54,3 +54,6 @@ obj/
 *.unityproj
 *.booproj
 .idea
+
+.vscode/
+
